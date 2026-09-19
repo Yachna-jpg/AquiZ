@@ -20,7 +20,7 @@ export function FinalCTA() {
         </p>
         
         <Link
-          href="#"
+          href="/intelligence"
           className="inline-flex items-center justify-center gap-2 bg-navy text-white px-8 py-4 rounded font-medium text-[15px] hover:bg-marine-primary transition-colors border border-transparent hover:border-marine-primary"
         >
           Launch Intelligence Dashboard <ArrowRight className="w-4 h-4" />

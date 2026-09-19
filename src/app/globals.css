@@ -35,4 +35,33 @@
   }
 }
 
+/* Fix Leaflet z-index conflicts with Tailwind */
+.leaflet-container {
+  z-index: 1 !important;
+  background: #0a0e1a !important;
+}
+
+.leaflet-control-zoom {
+  border: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+.leaflet-control-zoom a {
+  background: #0d1225 !important;
+  color: white !important;
+  border-color: rgba(255,255,255,0.1) !important;
+}
+
+.custom-vessel-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Custom scrollbar for sidebars */
+aside::-webkit-scrollbar {
+  width: 4px;
+}
+aside::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+}
 

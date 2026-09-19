@@ -28,7 +28,7 @@ export function Hero() {
           
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-16">
             <Link
-              href="#"
+              href="/intelligence"
               className="flex items-center justify-center gap-2 w-full sm:w-auto bg-navy text-white px-8 py-3.5 rounded font-medium hover:bg-marine-primary transition-colors text-[15px]"
             >
               Launch Intelligence <ArrowRight className="w-4 h-4" />

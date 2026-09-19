@@ -17,7 +17,7 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Intelligence", href: "#" },
+    { name: "Intelligence", href: "/intelligence" },
     { name: "How It Works", href: "#" },
     { name: "Technology", href: "#" },
     { name: "About", href: "#" },
@@ -57,7 +57,7 @@ export function Navbar() {
         {/* Right: CTA & Mobile Toggle */}
         <div className="flex items-center gap-4">
           <Link
-            href="#"
+            href="/intelligence"
             className="hidden sm:flex items-center gap-2 text-[13px] font-medium bg-navy text-white px-5 py-2.5 rounded hover:bg-marine-primary transition-colors"
           >
             Launch Dashboard <ArrowRight className="w-3.5 h-3.5" />
@@ -86,7 +86,7 @@ export function Navbar() {
             </Link>
           ))}
           <Link
-            href="#"
+            href="/intelligence"
             className="flex items-center justify-center gap-2 text-[14px] font-medium bg-navy text-white px-5 py-3 mt-2 rounded hover:bg-marine-primary transition-colors"
             onClick={() => setMobileMenuOpen(false)}
           >
