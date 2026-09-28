@@ -10,7 +10,7 @@ import IntelligenceHeader from "./components/IntelligenceHeader";
 export default function IntelligenceDashboard() {
   // ── Global state shared across all panels (PRESERVED) ──
   const [currentTime, setCurrentTime] = useState("2024-03-15T14:30:00");
-  const [layers, setLayers] = useState({
+  const [layers, setLayers] = useState<Record<string, boolean>>({
     satellite: true,
     oilSlick: true,
     vessels: true,

@@ -4,11 +4,11 @@ import { useState } from 'react';
 
 
 export function IntroWrapper({ children }: { children: React.ReactNode }) {
-  const [showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro] = useState(false);
 
   return (
     <>
-      {showIntro && <OceanIntro onFinish={() => setShowIntro(false)} />}
+      {/* showIntro && <OceanIntro onFinish={() => setShowIntro(false)} /> */}
       
       {/* Your normal website content */}
       <div style={{ opacity: showIntro ? 0 : 1, transition: 'opacity 0.8s ease' }}>
