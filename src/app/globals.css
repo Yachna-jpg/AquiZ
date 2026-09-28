@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* Core Colors */
+  /* Core Colors — Landing page palette (preserved) */
   --color-primary-bg: #F5F7F8;
   --color-secondary-bg: #EEF3F6;
   --color-white: #FFFFFF;
@@ -35,33 +35,85 @@
   }
 }
 
-/* Fix Leaflet z-index conflicts with Tailwind */
+/* ── Leaflet: light theme ── */
 .leaflet-container {
   z-index: 1 !important;
-  background: #0a0e1a !important;
+  background: #d4e0e8 !important;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 
 .leaflet-control-zoom {
-  border: 1px solid rgba(255,255,255,0.1) !important;
+  display: none !important; /* We use our own controls */
 }
 
-.leaflet-control-zoom a {
-  background: #0d1225 !important;
-  color: white !important;
-  border-color: rgba(255,255,255,0.1) !important;
+.leaflet-popup-content-wrapper {
+  border-radius: 6px !important;
+  border: 1px solid #DCE3E6 !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+  font-size: 12px !important;
 }
 
+.leaflet-popup-tip {
+  background: white !important;
+}
+
+/* Custom vessel icon - transparent background */
 .custom-vessel-icon {
   background: transparent !important;
   border: none !important;
 }
 
-/* Custom scrollbar for sidebars */
+/* ── Custom range input (score slider, timeline) ── */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #0B2235;
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+  cursor: pointer;
+  transition: box-shadow 0.15s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 1px 6px rgba(0,0,0,0.28);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #0B2235;
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+  cursor: pointer;
+}
+
+/* ── Sidebar scrollbar (light theme) ── */
 aside::-webkit-scrollbar {
   width: 4px;
 }
+aside::-webkit-scrollbar-track {
+  background: #F4F6F5;
+}
 aside::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.1);
+  background: #DCE3E6;
   border-radius: 2px;
 }
+aside::-webkit-scrollbar-thumb:hover {
+  background: #B8C4CC;
+}
 
+/* ── Scan animation for landing page hero (preserved) ── */
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(calc(100vh + 100%)); }
+}

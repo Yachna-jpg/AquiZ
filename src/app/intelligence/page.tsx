@@ -1,14 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import MapView from "./components/MapView";
 import LeftSidebar from "./components/LeftSidebar";
 import RightPanel from "./components/RightPanel";
 import TimeSlider from "./components/TimeSlider";
+import IntelligenceHeader from "./components/IntelligenceHeader";
 
 export default function IntelligenceDashboard() {
-  // ── Global state that all panels share ──
+  // ── Global state shared across all panels (PRESERVED) ──
   const [currentTime, setCurrentTime] = useState("2024-03-15T14:30:00");
   const [layers, setLayers] = useState({
     satellite: true,
@@ -19,58 +19,63 @@ export default function IntelligenceDashboard() {
   });
   const [selectedVessel, setSelectedVessel] = useState<string | null>(null);
 
+  // ── Filter state (connected to sidebar + map) ──
+  const [scoreThreshold, setScoreThreshold] = useState(30);
+  const [vesselType, setVesselType] = useState("all");
+  const [radius, setRadius] = useState("100");
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [rightPanelOpen, setRightPanelOpen] = useState(true);
+
   return (
-    <div className="h-screen flex flex-col bg-[#0a0e1a] text-white overflow-hidden">
-      
-      {/* ── TOP BAR ── */}
-      <header className="h-14 flex items-center justify-between px-6 border-b border-white/10 bg-[#0d1225]/80 backdrop-blur z-50">
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-            <span className="text-sm font-semibold tracking-widest uppercase text-cyan-400">
-              OilWatch Intelligence
-            </span>
-          </div>
-          
-          {/* NAVIGATION LINKS */}
-          <nav className="hidden md:flex items-center gap-4 text-sm font-medium">
-            <Link href="/" className="text-gray-400 hover:text-white transition-colors">Home</Link>
-            <Link href="/intelligence" className="text-cyan-400 border-b-2 border-cyan-400 pb-1">Intelligence</Link>
-            <Link href="/analysis" className="text-gray-400 hover:text-white transition-colors">Analysis</Link>
-          </nav>
-        </div>
-        <div className="flex items-center gap-4 text-xs text-gray-400">
-          <span>Region: Bay of Bengal</span>
-          <span>|</span>
-          <span>Live Feed</span>
-          <span className="px-2 py-0.5 bg-green-500/20 text-green-400 rounded text-[10px] font-bold">
-            ACTIVE
-          </span>
-        </div>
-      </header>
+    <div className="h-screen flex flex-col bg-[#F4F6F5] text-[#102A43] overflow-hidden font-sans">
 
-      {/* ── MAIN CONTENT ── */}
+      {/* TOP NAVIGATION */}
+      <IntelligenceHeader
+        sidebarCollapsed={sidebarCollapsed}
+        setSidebarCollapsed={setSidebarCollapsed}
+        rightPanelOpen={rightPanelOpen}
+        setRightPanelOpen={setRightPanelOpen}
+      />
+
+      {/* MAIN CONTENT */}
       <div className="flex-1 flex overflow-hidden">
-        
-        {/* LEFT SIDEBAR */}
-        <LeftSidebar layers={layers} setLayers={setLayers} />
 
-        {/* CENTER MAP */}
-        <div className="flex-1 relative">
+        {/* LEFT SIDEBAR */}
+        {!sidebarCollapsed && (
+          <LeftSidebar
+            layers={layers}
+            setLayers={setLayers}
+            scoreThreshold={scoreThreshold}
+            setScoreThreshold={setScoreThreshold}
+            vesselType={vesselType}
+            setVesselType={setVesselType}
+            radius={radius}
+            setRadius={setRadius}
+          />
+        )}
+
+        {/* CENTER MAP + TIME SLIDER */}
+        <div className="flex-1 relative flex flex-col overflow-hidden">
           <MapView
             layers={layers}
             currentTime={currentTime}
             selectedVessel={selectedVessel}
             setSelectedVessel={setSelectedVessel}
+            scoreThreshold={scoreThreshold}
+            vesselType={vesselType}
           />
+          <TimeSlider currentTime={currentTime} setCurrentTime={setCurrentTime} />
         </div>
 
         {/* RIGHT PANEL */}
-        <RightPanel selectedVessel={selectedVessel} />
+        {rightPanelOpen && (
+          <RightPanel
+            selectedVessel={selectedVessel}
+            setSelectedVessel={setSelectedVessel}
+            scoreThreshold={scoreThreshold}
+          />
+        )}
       </div>
-
-      {/* ── BOTTOM TIME SLIDER ── */}
-      <TimeSlider currentTime={currentTime} setCurrentTime={setCurrentTime} />
     </div>
   );
 }
