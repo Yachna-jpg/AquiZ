@@ -34,7 +34,7 @@ export function Navbar() {
         {/* Left: Brand */}
         <div className="flex items-center gap-3">
           <Link href="/" className="font-semibold text-[17px] tracking-wide text-primary-text">
-            OILTRACE
+            AquiZ
           </Link>
           <div className="h-4 w-px bg-surface-border hidden sm:block"></div>
           <span className="text-[11px] font-medium tracking-widest text-muted-text hidden sm:block uppercase">

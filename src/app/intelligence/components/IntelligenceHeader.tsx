@@ -66,7 +66,7 @@ export default function IntelligenceHeader({
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2.5">
           <span className="text-[15px] font-semibold tracking-wide text-[#0B2235]">
-            OILTRACE
+            AquiZ
           </span>
           <span className="hidden sm:block text-[10px] font-medium tracking-widest text-[#647482] uppercase">
             Maritime Intelligence

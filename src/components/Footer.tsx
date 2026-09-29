@@ -8,7 +8,7 @@ export function Footer() {
           
           <div className="col-span-1 md:col-span-2 flex flex-col">
             <h2 className="text-[17px] font-semibold tracking-wide text-white mb-2">
-              OILTRACE
+              AquiZ
             </h2>
             <p className="text-[11px] font-medium tracking-widest text-muted-text uppercase">
               Maritime Intelligence Platform
@@ -43,7 +43,7 @@ export function Footer() {
         
         <div className="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-navy-border/50">
           <p className="text-[12px] text-muted-text">
-            © 2026 OILTRACE
+            © 2026 AquiZ
           </p>
           <p className="text-[12px] text-muted-text">
             Research & Investigation Platform

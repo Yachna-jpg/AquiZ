@@ -90,7 +90,7 @@ export default function RightPanel({ selectedVessel, setSelectedVessel, scoreThr
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "oiltrace_vessel_report.csv";
+    a.download = "aquiz_vessel_report.csv";
     a.click();
     URL.revokeObjectURL(url);
   }

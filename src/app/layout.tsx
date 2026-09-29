@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "OILTRACE | Maritime Intelligence Platform",
+  title: "AquiZ | Maritime Intelligence Platform",
   description: "Intelligent maritime oil-spill detection and vessel-attribution platform.",
 };
 

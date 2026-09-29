@@ -176,7 +176,7 @@ export function TechnicalPipeline() {
       <div className="max-w-[1200px] mx-auto px-6 md:px-12">
         <div className="text-center mb-24 relative z-20">
           <h2 className="text-[32px] md:text-[40px] font-medium tracking-tight text-primary-text mb-4">
-            How OILTRACE Investigates
+            How AquiZ Investigates
           </h2>
           <p className="text-[17px] text-secondary-text max-w-2xl mx-auto">
             A deterministic, seven-step engineering pipeline.
