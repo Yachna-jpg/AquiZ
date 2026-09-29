@@ -25,7 +25,7 @@ const NAV_LINKS = [
   { label: "Dashboard", href: "/" },
   { label: "Intelligence", href: "/intelligence" },
   { label: "Analysis", href: "/analysis" },
-  { label: "Reports", href: "#reports" },
+  { label: "Reports", href: "/reports" },
 ];
 
 const REGIONS = [

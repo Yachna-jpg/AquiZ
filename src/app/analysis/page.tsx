@@ -12,6 +12,8 @@ export default function SpillAnalysisPage() {
   const [activeTab, setActiveTab] = useState<"raw" | "mask" | "polygon">("mask");
   const [sliderValue, setSliderValue] = useState(50);
   const [copied, setCopied] = useState(false);
+  const [showShips, setShowShips] = useState(false);
+  const [selectedShip, setSelectedShip] = useState<string | null>(null);
 
   const granuleName = "S1D_IW_GRDH_1SDV_20240315T084200_20240315T084225_003443_00613B_86B5";
 
@@ -23,6 +25,11 @@ export default function SpillAnalysisPage() {
 
   // Polygon shape based on MapCore.tsx SPILL_POLYGON
   const polyPoints = "8,30 48,0 88,12 100,59 68,100 20,88 0,59 8,30";
+
+  const scrollToShips = (e: React.MouseEvent) => {
+    e.preventDefault();
+    document.getElementById("suspect-ships")?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <div className="min-h-screen bg-[#F4F6F5] text-[#0B2235] flex flex-col font-sans">
@@ -43,6 +50,7 @@ export default function SpillAnalysisPage() {
             <Link href="/" className="text-[#647482] hover:text-[#0B2235] transition-colors">Home</Link>
             <Link href="/intelligence" className="text-[#647482] hover:text-[#0B2235] transition-colors">Intelligence</Link>
             <Link href="/analysis" className="text-[#0B2235] border-b-2 border-[#0B2235] pb-1">Analysis</Link>
+            <Link href="/reports" className="text-[#647482] hover:text-[#0B2235] transition-colors">Reports</Link>
           </nav>
         </div>
         <div className="text-xs text-[#647482] font-mono hidden sm:block">
@@ -59,31 +67,43 @@ export default function SpillAnalysisPage() {
           <div className="xl:col-span-2 bg-white border border-[#DCE3E6] rounded-xl flex flex-col overflow-hidden shadow-sm">
             
             {/* View Toggles */}
-            <div className="flex flex-wrap items-center p-3 sm:p-4 border-b border-[#DCE3E6] gap-2 bg-[#F9FBFC]">
-              <button 
-                onClick={() => setActiveTab("raw")}
-                className={`px-3 py-2 text-xs sm:text-sm rounded flex items-center gap-2 transition-all font-medium ${
-                  activeTab === "raw" ? "bg-[#EAF2F8] text-[#2E6F9E] border border-[#2E6F9E]/30 shadow-sm" : "text-[#647482] hover:bg-[#F4F6F5] border border-transparent"
-                }`}
-              >
-                <Satellite size={16} /> Raw Sentinel-1 SAR
-              </button>
-              <button 
-                onClick={() => setActiveTab("mask")}
-                className={`px-3 py-2 text-xs sm:text-sm rounded flex items-center gap-2 transition-all font-medium ${
-                  activeTab === "mask" ? "bg-[#F3E8FF] text-[#7E22CE] border border-[#7E22CE]/30 shadow-sm" : "text-[#647482] hover:bg-[#F4F6F5] border border-transparent"
-                }`}
-              >
-                <Cpu size={16} /> AI Segmentation Mask
-              </button>
-              <button 
-                onClick={() => setActiveTab("polygon")}
-                className={`px-3 py-2 text-xs sm:text-sm rounded flex items-center gap-2 transition-all font-medium ${
-                  activeTab === "polygon" ? "bg-[#FFF4ED] text-[#C74732] border border-[#C74732]/30 shadow-sm" : "text-[#647482] hover:bg-[#F4F6F5] border border-transparent"
-                }`}
-              >
-                <Map size={16} /> Extracted Polygon
-              </button>
+            <div className="flex flex-wrap items-center p-3 sm:p-4 border-b border-[#DCE3E6] gap-2 bg-[#F9FBFC] justify-between">
+              <div className="flex flex-wrap gap-2">
+                <button 
+                  onClick={() => setActiveTab("raw")}
+                  className={`px-3 py-2 text-xs sm:text-sm rounded flex items-center gap-2 transition-all font-medium ${
+                    activeTab === "raw" ? "bg-[#EAF2F8] text-[#2E6F9E] border border-[#2E6F9E]/30 shadow-sm" : "text-[#647482] hover:bg-[#F4F6F5] border border-transparent"
+                  }`}
+                >
+                  <Satellite size={16} /> Raw Sentinel-1 SAR
+                </button>
+                <button 
+                  onClick={() => setActiveTab("mask")}
+                  className={`px-3 py-2 text-xs sm:text-sm rounded flex items-center gap-2 transition-all font-medium ${
+                    activeTab === "mask" ? "bg-[#F3E8FF] text-[#7E22CE] border border-[#7E22CE]/30 shadow-sm" : "text-[#647482] hover:bg-[#F4F6F5] border border-transparent"
+                  }`}
+                >
+                  <Cpu size={16} /> AI Segmentation Mask
+                </button>
+                <button 
+                  onClick={() => setActiveTab("polygon")}
+                  className={`px-3 py-2 text-xs sm:text-sm rounded flex items-center gap-2 transition-all font-medium ${
+                    activeTab === "polygon" ? "bg-[#FFF4ED] text-[#C74732] border border-[#C74732]/30 shadow-sm" : "text-[#647482] hover:bg-[#F4F6F5] border border-transparent"
+                  }`}
+                >
+                  <Map size={16} /> Extracted Polygon
+                </button>
+              </div>
+              <div className="flex items-center gap-2 border-l border-[#DCE3E6] pl-2 ml-2">
+                <button
+                  onClick={() => setShowShips(!showShips)}
+                  className={`px-3 py-2 text-xs sm:text-sm rounded flex items-center gap-2 transition-all font-medium ${
+                    showShips ? "bg-[#E6F4EA] text-[#1E8E3E] border border-[#1E8E3E]/30 shadow-sm" : "text-[#647482] hover:bg-[#F4F6F5] border border-[#DCE3E6]"
+                  }`}
+                >
+                  <Navigation size={16} /> Show Ships
+                </button>
+              </div>
             </div>
 
             {/* Image Display Area */}
@@ -115,6 +135,23 @@ export default function SpillAnalysisPage() {
                     <polygon points={polyPoints} fill="rgba(199,71,50,0.15)" stroke="#C74732" strokeWidth="1" strokeDasharray="2,2" />
                     <circle cx="50" cy="50" r="2" fill="#C74732" />
                     <text x="50" y="60" fill="#C74732" fontSize="6" textAnchor="middle" fontWeight="bold">Centroid</text>
+                  </svg>
+                </div>
+
+                {/* Ships Overlay */}
+                <div className={`absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-300 ${showShips ? 'opacity-100' : 'opacity-0'}`}>
+                  <svg viewBox="0 0 100 100" className="w-full h-full">
+                    <circle cx="30" cy="40" r="1.5" fill="#EF4444" className="drop-shadow-md" />
+                    <text x="32" y="41" fill="#EF4444" fontSize="3" fontWeight="bold">MV Ocean Star</text>
+                    <polyline points="30,40 25,20 10,10" fill="none" stroke="#EF4444" strokeWidth="0.5" strokeDasharray="1,1" />
+
+                    <circle cx="70" cy="60" r="1.5" fill="#F59E0B" className="drop-shadow-md" />
+                    <text x="72" y="61" fill="#F59E0B" fontSize="3" fontWeight="bold">MT Pacific Dawn</text>
+                    <polyline points="70,60 85,75 95,70" fill="none" stroke="#F59E0B" strokeWidth="0.5" strokeDasharray="1,1" />
+
+                    <circle cx="20" cy="80" r="1.5" fill="#6B7280" className="drop-shadow-md" />
+                    <text x="22" y="81" fill="#6B7280" fontSize="3" fontWeight="bold">MV Blue Horizon</text>
+                    <polyline points="20,80 15,90 5,95" fill="none" stroke="#6B7280" strokeWidth="0.5" strokeDasharray="1,1" />
                   </svg>
                 </div>
 
@@ -234,9 +271,9 @@ export default function SpillAnalysisPage() {
 
               {/* Action Buttons */}
               <div className="mt-auto flex flex-col gap-2">
-                <Link href="/intelligence" className="w-full bg-[#0B2235] hover:bg-[#173A52] text-white py-2.5 rounded text-sm transition-all flex items-center justify-center gap-2 font-semibold shadow-sm">
+                <button onClick={scrollToShips} className="w-full bg-[#0B2235] hover:bg-[#173A52] text-white py-2.5 rounded text-sm transition-all flex items-center justify-center gap-2 font-semibold shadow-sm">
                   <Navigation size={16} /> Go to suspect ships
-                </Link>
+                </button>
                 
                 <div className="flex gap-2">
                   <button className="flex-1 bg-white hover:bg-[#F4F6F5] border border-[#DCE3E6] text-[#0B2235] font-medium py-2 rounded text-xs transition-all flex items-center justify-center gap-1.5 shadow-sm">
@@ -255,8 +292,130 @@ export default function SpillAnalysisPage() {
           </div>
         </div>
 
+        {/* ── NEW SUSPECT SHIPS SECTION ── */}
+        <div id="suspect-ships" className="mt-2">
+          <h2 className="text-lg font-bold text-[#0B2235] mb-4 flex items-center gap-2">
+            <Target size={20} className="text-[#C74732]" /> Suspect Ships Investigation
+          </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            
+            {/* Ships List */}
+            <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-4">
+              
+              {/* Ship A */}
+              <div 
+                className={`bg-white border rounded-xl p-4 shadow-sm cursor-pointer transition-all ${selectedShip === 'A' ? 'border-[#EF4444] ring-1 ring-[#EF4444]' : 'border-[#DCE3E6] hover:border-[#CBD5E1]'}`}
+                onClick={() => setSelectedShip('A')}
+              >
+                <div className="flex justify-between items-start mb-2">
+                  <div>
+                    <h4 className="font-bold text-[#0B2235]">MV Ocean Star 🇮🇳</h4>
+                    <span className="text-xs text-[#647482]">Tanker</span>
+                  </div>
+                  <span className="px-2 py-1 bg-[#FEE2E2] text-[#B91C1C] text-[10px] font-bold rounded uppercase">Most Likely</span>
+                </div>
+                <div className="space-y-1.5 text-xs text-[#0B2235] mb-3">
+                  <div className="flex justify-between"><span className="text-[#647482]">Match Score</span><span className="font-bold text-[#EF4444]">87%</span></div>
+                  <div className="flex justify-between"><span className="text-[#647482]">Distance</span><span>1.3 km</span></div>
+                  <div className="flex justify-between"><span className="text-[#647482]">Time Near Spill</span><span>9 hours ago</span></div>
+                  <div className="flex justify-between"><span className="text-[#647482]">Speed / Dir</span><span>0.4 kts / 218°</span></div>
+                  <div className="flex justify-between"><span className="text-[#647482]">Crossed Path</span><span className="font-bold">Yes</span></div>
+                </div>
+                <div className="bg-[#F9FBFC] p-2 rounded text-xs text-[#647482] border border-[#E8EDF0]">
+                  "Was inside the spill path 9 hours ago. Speed dropped suddenly."
+                </div>
+              </div>
+
+              {/* Ship B */}
+              <div 
+                className={`bg-white border rounded-xl p-4 shadow-sm cursor-pointer transition-all ${selectedShip === 'B' ? 'border-[#F59E0B] ring-1 ring-[#F59E0B]' : 'border-[#DCE3E6] hover:border-[#CBD5E1]'}`}
+                onClick={() => setSelectedShip('B')}
+              >
+                <div className="flex justify-between items-start mb-2">
+                  <div>
+                    <h4 className="font-bold text-[#0B2235]">MT Pacific Dawn 🇸🇬</h4>
+                    <span className="text-xs text-[#647482]">Tanker</span>
+                  </div>
+                  <span className="px-2 py-1 bg-[#FEF3C7] text-[#B45309] text-[10px] font-bold rounded uppercase">Possible</span>
+                </div>
+                <div className="space-y-1.5 text-xs text-[#0B2235] mb-3">
+                  <div className="flex justify-between"><span className="text-[#647482]">Match Score</span><span className="font-bold text-[#F59E0B]">69%</span></div>
+                  <div className="flex justify-between"><span className="text-[#647482]">Distance</span><span>4.8 km</span></div>
+                  <div className="flex justify-between"><span className="text-[#647482]">Time Near Spill</span><span>12 hours ago</span></div>
+                  <div className="flex justify-between"><span className="text-[#647482]">Speed / Dir</span><span>12.1 kts / 45°</span></div>
+                  <div className="flex justify-between"><span className="text-[#647482]">Crossed Path</span><span>No</span></div>
+                </div>
+                <div className="bg-[#F9FBFC] p-2 rounded text-xs text-[#647482] border border-[#E8EDF0]">
+                  "Passed nearby, but 4.8 km away from the path."
+                </div>
+              </div>
+
+              {/* Ship C */}
+              <div 
+                className={`bg-white border rounded-xl p-4 shadow-sm cursor-pointer transition-all ${selectedShip === 'C' ? 'border-[#6B7280] ring-1 ring-[#6B7280]' : 'border-[#DCE3E6] hover:border-[#CBD5E1]'}`}
+                onClick={() => setSelectedShip('C')}
+              >
+                <div className="flex justify-between items-start mb-2">
+                  <div>
+                    <h4 className="font-bold text-[#0B2235]">MV Blue Horizon 🇬🇧</h4>
+                    <span className="text-xs text-[#647482]">Cargo</span>
+                  </div>
+                  <span className="px-2 py-1 bg-[#F3F4F6] text-[#374151] text-[10px] font-bold rounded uppercase">Ruled Out</span>
+                </div>
+                <div className="space-y-1.5 text-xs text-[#0B2235] mb-3">
+                  <div className="flex justify-between"><span className="text-[#647482]">Match Score</span><span className="font-bold text-[#6B7280]">43%</span></div>
+                  <div className="flex justify-between"><span className="text-[#647482]">Distance</span><span>6.2 km</span></div>
+                  <div className="flex justify-between"><span className="text-[#647482]">Time Near Spill</span><span>8 hours ago</span></div>
+                  <div className="flex justify-between"><span className="text-[#647482]">Speed / Dir</span><span>9.3 kts / 130°</span></div>
+                  <div className="flex justify-between"><span className="text-[#647482]">Crossed Path</span><span>No</span></div>
+                </div>
+                <div className="bg-[#F9FBFC] p-2 rounded text-xs text-[#647482] border border-[#E8EDF0]">
+                  "Was too far away at the time."
+                </div>
+              </div>
+
+            </div>
+
+            {/* Small Map */}
+            <div className="lg:col-span-1 bg-white border border-[#DCE3E6] rounded-xl overflow-hidden shadow-sm flex flex-col">
+              <div className="p-3 border-b border-[#DCE3E6] bg-[#F9FBFC] text-xs font-bold text-[#0B2235] flex items-center gap-2">
+                <Map size={14} className="text-[#647482]" /> Route Map
+              </div>
+              <div className="relative flex-1 bg-[#E8EDF0] min-h-[200px] flex items-center justify-center p-4">
+                <svg viewBox="0 0 100 100" className="w-full h-full max-w-[150px]">
+                  {/* Spill Patch */}
+                  <polygon points="40,40 60,35 70,55 50,60" fill="rgba(199,71,50,0.3)" stroke="#C74732" strokeWidth="1" strokeDasharray="1,1" />
+                  
+                  {/* Ship Routes */}
+                  <polyline 
+                    points="30,40 45,45 60,35 80,20" 
+                    fill="none" stroke="#EF4444" strokeWidth={selectedShip === 'A' ? 2 : 1} 
+                    className={`transition-all ${selectedShip === 'A' ? 'opacity-100' : 'opacity-40'}`} 
+                  />
+                  <polyline 
+                    points="70,60 85,75 95,70" 
+                    fill="none" stroke="#F59E0B" strokeWidth={selectedShip === 'B' ? 2 : 1} 
+                    className={`transition-all ${selectedShip === 'B' ? 'opacity-100' : 'opacity-40'}`} 
+                  />
+                  <polyline 
+                    points="20,80 15,90 5,95" 
+                    fill="none" stroke="#6B7280" strokeWidth={selectedShip === 'C' ? 2 : 1} 
+                    className={`transition-all ${selectedShip === 'C' ? 'opacity-100' : 'opacity-40'}`} 
+                  />
+                  
+                  {/* Ship Markers */}
+                  <circle cx="30" cy="40" r="3" fill="#EF4444" className={`transition-all ${selectedShip === 'A' ? 'stroke-white stroke-[1.5]' : ''}`} />
+                  <circle cx="70" cy="60" r="3" fill="#F59E0B" className={`transition-all ${selectedShip === 'B' ? 'stroke-white stroke-[1.5]' : ''}`} />
+                  <circle cx="20" cy="80" r="3" fill="#6B7280" className={`transition-all ${selectedShip === 'C' ? 'stroke-white stroke-[1.5]' : ''}`} />
+                </svg>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
         {/* ── BOTTOM: AI PIPELINE STATUS ── */}
-        <div className="bg-white border border-[#DCE3E6] rounded-xl p-5 sm:p-6 mt-2 overflow-x-auto shadow-sm">
+        <div className="bg-white border border-[#DCE3E6] rounded-xl p-5 sm:p-6 mt-8 overflow-x-auto shadow-sm">
           <h3 className="text-xs uppercase tracking-widest text-[#647482] mb-6 flex items-center gap-2 font-semibold">
             <Activity size={14} /> Automated Processing Pipeline
           </h3>

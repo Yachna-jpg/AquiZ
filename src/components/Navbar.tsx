@@ -18,9 +18,10 @@ export function Navbar() {
 
   const navLinks = [
     { name: "Intelligence", href: "/intelligence" },
+    { name: "Analysis", href: "/analysis" },
+    { name: "Reports", href: "/reports" },
     { name: "How It Works", href: "#" },
     { name: "Technology", href: "#" },
-    { name: "About", href: "#" },
   ];
 
   return (
