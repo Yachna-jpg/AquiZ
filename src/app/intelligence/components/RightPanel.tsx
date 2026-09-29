@@ -74,9 +74,9 @@ export default function RightPanel({ selectedVessel, setSelectedVessel, scoreThr
   ];
 
   const IMAGERY_FRAMES = [
-    { ts: "2024-03-15 06:00 UTC", source: "Sentinel-1A", band: "C-SAR (VV)" },
-    { ts: "2024-03-15 10:22 UTC", source: "Sentinel-1B", band: "C-SAR (VH)" },
-    { ts: "2024-03-15 14:30 UTC", source: "Sentinel-1A", band: "C-SAR (VV)" },
+    { ts: "2026-03-15 06:00 UTC", source: "Sentinel-1A", band: "C-SAR (VV)" },
+    { ts: "2026-03-15 10:22 UTC", source: "Sentinel-1B", band: "C-SAR (VH)" },
+    { ts: "2026-03-15 14:30 UTC", source: "Sentinel-1A", band: "C-SAR (VV)" },
   ];
 
   function handleDownloadReport() {

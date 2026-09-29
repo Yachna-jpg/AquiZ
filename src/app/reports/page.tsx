@@ -51,25 +51,26 @@ export default function ReportPage() {
           <div className="space-y-3">
             <div className="p-3 bg-[#F4F6F5] border border-[#DCE3E6] rounded-lg cursor-pointer">
               <div className="flex justify-between items-start mb-1">
-                <span className="text-xs font-bold text-[#0B2235]">REP-9284-A</span>
+                <span className="text-xs font-bold text-[#0B2235]">MV Ocean Star 🇮🇳	Tanker	1.3 km	87%	Most Likely
+MT Pacific Dawn 🇸🇬</span>
                 <span className="text-[10px] text-[#C74732] font-semibold bg-[#FFF4ED] px-1.5 rounded">High</span>
               </div>
-              <div className="text-[10px] text-[#647482]">15 Mar 2024</div>
-              <div className="text-[11px] font-medium text-[#0B2235] mt-1">S-2024-03-15</div>
+              <div className="text-[10px] text-[#647482]">16 Sep 2026</div>
+              <div className="text-[11px] font-medium text-[#0B2235] mt-1">S-2026-09-16</div>
             </div>
             
             <div className="p-3 bg-white border border-[#DCE3E6] rounded-lg cursor-pointer hover:bg-[#F9FBFC] transition-colors">
               <div className="flex justify-between items-start mb-1">
-                <span className="text-xs font-bold text-[#647482]">REP-9102-B</span>
+                <span className="text-xs font-bold text-[#647482]">MT Pacific Dawn 🇸🇬</span>
                 <span className="text-[10px] text-[#C9822B] font-semibold bg-[#FEF3C7] px-1.5 rounded">Med</span>
               </div>
-              <div className="text-[10px] text-[#647482]">02 Feb 2024</div>
-              <div className="text-[11px] font-medium text-[#647482] mt-1">S-2024-02-02</div>
+              <div className="text-[10px] text-[#647482]">02 Feb 2026</div>
+              <div className="text-[11px] font-medium text-[#647482] mt-1">S-2026-02-02</div>
             </div>
             
             <div className="p-3 bg-white border border-[#DCE3E6] rounded-lg cursor-pointer hover:bg-[#F9FBFC] transition-colors">
               <div className="flex justify-between items-start mb-1">
-                <span className="text-xs font-bold text-[#647482]">REP-8854-C</span>
+                <span className="text-xs font-bold text-[#647482]">MV Blue Horizon 🇬🇧</span>
                 <span className="text-[10px] text-[#1E8E3E] font-semibold bg-[#E6F4EA] px-1.5 rounded">Low</span>
               </div>
               <div className="text-[10px] text-[#647482]">12 Nov 2023</div>
@@ -88,8 +89,8 @@ export default function ReportPage() {
                 <h1 className="text-2xl font-bold mb-1">Automated Investigation Report</h1>
                 <div className="flex items-center gap-4 text-sm text-[#A0B3C6]">
                   <span className="flex items-center gap-1"><FileText size={14} /> ID: REP-9284-A</span>
-                  <span className="flex items-center gap-1"><MapPin size={14} /> Event: S-2024-03-15</span>
-                  <span className="flex items-center gap-1"><Clock size={14} /> 15 Mar 2024, 08:42 UTC</span>
+                  <span className="flex items-center gap-1"><MapPin size={14} /> Event: S-2026-09-16</span>
+                  <span className="flex items-center gap-1"><Clock size={14} /> 16 Sep 2026, 08:42 UTC</span>
                 </div>
               </div>
               
@@ -116,7 +117,7 @@ export default function ReportPage() {
               <section>
                 <h2 className="text-xs uppercase tracking-widest text-[#647482] mb-3 font-semibold border-b border-[#DCE3E6] pb-2">Executive Summary</h2>
                 <p className="text-sm text-[#102A43] leading-relaxed">
-                  On 15 March 2024 at 08:42 UTC, an automated satellite detection identified a confirmed 12.4 km² oil spill located at 19.8245°N, 88.3120°E. The spill is estimated to be 8-12 hours old with a volume of approximately 5,200 bbl. Spatio-temporal and AIS analysis strongly correlates the event with the tanker <strong>MV Ocean Star</strong>, which exhibited anomalous speed changes precisely within the spill's backward trajectory.
+                  On 16 September 2026 at 08:42 UTC, an automated satellite detection identified a confirmed 12.4 km² oil spill located at 19.8245°N, 88.3120°E. The spill is estimated to be 8-12 hours old with a volume of approximately 5,200 bbl. Spatio-temporal and AIS analysis strongly correlates the event with the tanker <strong>MV Ocean Star</strong>, which exhibited anomalous speed changes precisely within the spill's backward trajectory.
                 </p>
               </section>
 
@@ -292,7 +293,7 @@ export default function ReportPage() {
                     </li>
                     <li className="flex items-start gap-2">
                       <div className="w-4 h-4 rounded border border-[#DCE3E6] bg-[#F4F6F5] shrink-0 mt-0.5" />
-                      <span>Request ship logs and oil discharge records for 15 Mar 2024.</span>
+                      <span>Request ship logs and oil discharge records for 16 Sep 2026.</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <div className="w-4 h-4 rounded border border-[#DCE3E6] bg-[#F4F6F5] shrink-0 mt-0.5" />

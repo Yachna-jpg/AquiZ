@@ -48,7 +48,7 @@ export default function TimeSlider({ currentTime, setCurrentTime }: Props) {
 
   // Sync slider value back to currentTime (PRESERVED)
   useEffect(() => {
-    const base = new Date("2024-03-15T14:30:00");
+    const base = new Date("2026-03-15T14:30:00");
     const offsetHours = (sliderValue / 100) * 48 - 24;
     const t = new Date(base.getTime() + offsetHours * 3600 * 1000);
     setCurrentTime(t.toISOString().slice(0, 19));

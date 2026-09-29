@@ -15,7 +15,7 @@ export default function SpillAnalysisPage() {
   const [showShips, setShowShips] = useState(false);
   const [selectedShip, setSelectedShip] = useState<string | null>(null);
 
-  const granuleName = "S1D_IW_GRDH_1SDV_20240315T084200_20240315T084225_003443_00613B_86B5";
+  const granuleName = "S1D_IW_GRDH_1SDV_20260916T084200_20260916T084225_003443_00613B_86B5";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(granuleName);
@@ -42,7 +42,7 @@ export default function SpillAnalysisPage() {
             <span className="text-sm font-semibold tracking-widest uppercase text-[#0B2235] hidden sm:inline">
               Detection Analysis
             </span>
-            <span className="text-[#647482] text-xs">/ Event: S-2024-03-15</span>
+            <span className="text-[#647482] text-xs">/ Event: S-2026-09-16</span>
           </div>
           
           {/* NAVIGATION LINKS */}
@@ -54,7 +54,7 @@ export default function SpillAnalysisPage() {
           </nav>
         </div>
         <div className="text-xs text-[#647482] font-mono hidden sm:block">
-          15 Mar 2024 • 08:42 UTC
+          16 Sep 2026 • 08:42 UTC
         </div>
       </header>
 
@@ -113,7 +113,7 @@ export default function SpillAnalysisPage() {
                 
                 {/* Raw Background */}
                 <img 
-                  src="/satellite image.png" 
+                  src="/sentinel_test.png" 
                   alt="Raw SAR Imagery" 
                   className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${activeTab === 'polygon' ? 'opacity-30' : 'opacity-100'}`} 
                   onError={(e) => { e.currentTarget.style.display = 'none'; }}
@@ -188,7 +188,7 @@ export default function SpillAnalysisPage() {
             <div className="bg-white border border-[#DCE3E6] rounded-xl p-5 sm:p-6 shadow-sm">
               <h3 className="text-xs uppercase tracking-widest text-[#647482] mb-4 flex items-center justify-between font-semibold">
                 <span className="flex items-center gap-2"><Target size={14} /> Physical Characteristics</span>
-                <span className="text-[10px] text-[#2E6F9E] font-mono font-medium">15 Mar 2024</span>
+                <span className="text-[10px] text-[#2E6F9E] font-mono font-medium">16 Sep 2026</span>
               </h3>
               
               <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-6">
